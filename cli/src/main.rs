@@ -61,6 +61,7 @@ enum Command {
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    console_subscriber::init();
     config::setup();
     log::info!("Run localtunnel CLI!");
 
