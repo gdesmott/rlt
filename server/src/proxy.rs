@@ -24,12 +24,16 @@ pub async fn proxy_handler(
 
     let endpoint = extract(hostname)?;
 
+    dbg!("bbb");
     let mut manager = manager.lock().await;
+    dbg!("BBB");
     let client = manager
         .clients
         .get_mut(&endpoint)
         .ok_or(ServerError::ProxyNotReady)?;
+    dbg!("ccc");
     let mut client = client.lock().await;
+    dbg!("CCC");
     let client_stream = client.take().await.ok_or(ServerError::EmptyConnection)?;
     let client_stream = hyper_util::rt::TokioIo::new(client_stream);
 

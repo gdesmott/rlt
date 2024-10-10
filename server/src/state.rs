@@ -33,7 +33,9 @@ impl ClientManager {
         let client = Arc::new(Mutex::new(Client::new(self.default_max_sockets)));
         self.clients.insert(url, client.clone());
 
+        dbg!("ddd");
         let mut client = client.lock().await;
+        dbg!("DDD");
         client.listen().await
     }
 }
@@ -68,7 +70,9 @@ impl Client {
                     Ok((socket, addr)) => {
                         log::info!("new client connection: {:?}", addr);
 
+                        dbg!("eee");
                         let mut sockets = sockets.lock().await;
+                        dbg!("EEE");
                         let sockets_len = sockets.len();
                         if sockets_len < max_sockets as usize {
                             log::debug!("Add a new socket {}/{max_sockets}", sockets_len + 1,);
@@ -86,7 +90,9 @@ impl Client {
     }
 
     pub async fn take(&mut self) -> Option<TcpStream> {
+        dbg!("fff");
         let mut sockets = self.available_sockets.lock().await;
+        dbg!("FFF");
         log::debug!("try using socket {}/{}", sockets.len(), self.max_sockets);
         sockets.pop()
     }

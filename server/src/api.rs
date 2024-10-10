@@ -63,7 +63,9 @@ pub async fn request_endpoint(
         };
     }
 
+    dbg!("aaa");
     let mut manager = state.manager.lock().await;
+    dbg!("AAA");
     match manager.put(endpoint.to_string()).await {
         Ok(port) => {
             let schema = if state.secure { "https" } else { "http" };
